@@ -11,9 +11,8 @@ if [ -z "${jenkins_url}" -o \
      exit 1
 fi
 
-git_remote=`git status -s -b | head -1 | sed 's/.*\.//' | cut -d/ -f1`
-git_branch=`git status -s -b | head -1 | sed 's/.*\.//' | cut -d/ -f2`
-git_url=`git remote get-url ${git_remote}`
+git_branch=`git status -s -b | head -1 | awk '{print $2;}' | cut -d. -f1`
+git_url=`git remote get-url origin` 
 
 cat seed-job.xml | \
     sed \
